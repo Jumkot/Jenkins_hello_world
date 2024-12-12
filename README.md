@@ -1,2 +1,2 @@
-# Jenkins-_hello_world
+# Jenkins_hello_world
 Репозиторий для проверки Jenkins-ом
