@@ -1,18 +1,6 @@
 version: '3.8'
 
 services:
-  app:
-    image: python:3.9-slim
-    container_name: hello_world_app
-    working_dir: /app
-    volumes:
-      - ./app:/app
-    command: >
-      /bin/sh -c "pip install -r /app/requirements.txt && python3 /app/hello_world.py"
-    expose:
-      - "5000"
-    restart: always
-
   nginx:
     image: nginx:latest
     container_name: nginx_proxy
@@ -22,12 +10,13 @@ services:
     ports:
       - "443:443"
     depends_on:
-      - app
       - jenkins
     restart: always
 
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: jenkins
     user: root
     volumes:

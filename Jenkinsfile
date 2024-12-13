@@ -1,28 +1,31 @@
 pipeline {
     agent any
     triggers {
-        githubPush()
+        githubPush()  // Пайплайн будет запускаться при изменении в репозитории
     }
     stages {
-        stage('Clone repository') {
+        stage('Build Docker Image') {
             steps {
-                git 'https://github.com/Jumkot/Jenkins_hello_world.git'
+                script {
+                    // Собираем Docker-образ, используя Dockerfile из папки app
+                    sh 'docker build -t jenkins_app:latest ./app'
+                }
             }
         }
-        stage('Install dependencies') {
+        stage('Run Docker Container') {
             steps {
-                sh 'pip install -r app/requirements.txt'
+                script {
+                    // Запускаем контейнер в фоновом режиме
+                    sh 'docker run -d --name jenkins_app_container -p 5000:5000 -p 443:443 jenkins_app:latest'
+                }
             }
         }
-        stage('Build Docker image') {
-            steps {
-                sh 'docker-compose -f docker-compose.yml build'
-            }
-        }
-        stage('Deploy application') {
-            steps {
-                sh 'docker-compose -f docker-compose.yml down && docker-compose -f docker-compose.yml up -d'
-            }
+    }
+    post {
+        always {
+            // Чистим контейнер после выполнения
+            sh 'docker stop jenkins_app_container || true'
+            sh 'docker rm jenkins_app_container || true'
         }
     }
 }
