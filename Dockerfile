@@ -1,10 +1,7 @@
-# Базовый образ Jenkins LTS
 FROM jenkins/jenkins:lts
 
-# Переключаемся на root для установки пакетов
 USER root
 
-# Устанавливаем Nginx и Docker
 RUN apt-get update && apt-get install -y \
     nginx \
     apt-transport-https \
@@ -17,17 +14,12 @@ RUN apt-get update && apt-get install -y \
     apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Копируем конфигурацию Nginx для Jenkins
 COPY app.conf /etc/nginx/conf.d/default.conf
 
-# Создаём папку для Nginx и запускаем его вместе с Jenkins
 RUN mkdir -p /var/run/nginx
 
-# Открываем порты для Nginx и Jenkins
 EXPOSE 443 8080
 
-# Возвращаемся к стандартному пользователю Jenkins
 USER jenkins
 
-# Задаём рабочую директорию Jenkins
 WORKDIR /var/jenkins_home
