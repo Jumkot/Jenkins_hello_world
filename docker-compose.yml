@@ -1,5 +1,8 @@
 version: '3.8'
 
+networks:
+  jenkins_network:
+
 services:
   nginx:
     image: nginx:latest
@@ -12,6 +15,8 @@ services:
     depends_on:
       - jenkins
     restart: always
+    networks:
+      - jenkins_network
 
   jenkins:
     build:
@@ -27,6 +32,8 @@ services:
     ports:
       - "8080:8080"
     restart: always
+    networks:
+      - jenkins_network
 
 volumes:
   jenkins_home:
