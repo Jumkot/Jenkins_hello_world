@@ -3,7 +3,10 @@
 Добавляем дженкинс в группу докер
 Создаём структуру и пишем файлы
 Делаем ключи Запускаем контейнеры
+Даём права папке jenkins_data для сохранения: chmod -R 777 ./jenkins_data
 Настраиваем дженкинс (http://localhost:8080/)
 1. Ищем его пароль и вводим, ждём установку плагинов
+    docker exec -it jenkins bash
+    cat /var/jenkins_home/secrets/initialAdminPassword
 2. Задаём администратора
 3. 
