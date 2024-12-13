@@ -24,8 +24,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./certs/server.crt:/etc/ssl/certs/server.crt
       - ./certs/server.key:/etc/ssl/private/server.key
-    expose:
-      - "8080"
+    ports:
+      - "8080:8080"
     restart: always
 
 volumes:
