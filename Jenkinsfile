@@ -13,12 +13,12 @@ pipeline {
         }
         stage('Build Docker image') {
             steps {
-                sh 'docker-compose -f infra/docker-compose.yml build'
+                sh 'docker-compose -f docker-compose.yml build'
             }
         }
         stage('Deploy application') {
             steps {
-                sh 'docker-compose -f infra/docker-compose.yml down && docker-compose -f infra/docker-compose.yml up -d'
+                sh 'docker-compose -f docker-compose.yml down && docker-compose -f docker-compose.yml up -d'
             }
         }
     }
