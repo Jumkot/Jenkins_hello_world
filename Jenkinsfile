@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                git 'https://github.com/Jumkot/Jenkins_hello_world.git'
+                git url: 'https://github.com/Jumkot/Jenkins_hello_world.git', branch: 'one'
             }
         }
         stage('Install dependencies') {
