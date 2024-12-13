@@ -26,7 +26,7 @@ pipeline {
                     sh 'docker rm jenkins_app_container || true'
 
                     // Запускаем контейнер в фоновом режиме
-                    sh 'docker run -d --name jenkins_app_container -p 5000:5000 -p 443:443 jenkins_app:latest'
+                    sh 'docker run -d --name jenkins_app_container -p 5000:5000 -p 8443:443 jenkins_app:latest'
                 }
             }
         }
