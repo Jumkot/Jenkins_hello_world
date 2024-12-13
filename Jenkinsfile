@@ -3,14 +3,11 @@ pipeline {
     triggers {
         githubPush()  // Пайплайн будет запускаться при изменении в репозитории
     }
-    environment {
-        REPO_URL = 'https://github.com/Jumkot/Jenkins_hello_world.git'  // URL репозитория
-    }
     stages {
         stage('Clone Repository') {
             steps {
                 // Клонируем репозиторий
-                git REPO_URL
+                git url: 'https://github.com/Jumkot/Jenkins_hello_world.git', branch: 'main'
             }
         }
         stage('Build Docker Image') {
