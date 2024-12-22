@@ -3,7 +3,6 @@ FROM jenkins/jenkins:lts
 USER root
 
 RUN apt-get update && apt-get install -y \
-    nginx \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -13,8 +12,6 @@ RUN apt-get update && apt-get install -y \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list && \
     apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
-
-COPY app.conf /etc/nginx/conf.d/default.conf
 
 RUN mkdir -p /var/run/nginx
 
